@@ -1134,6 +1134,9 @@ int main(int argc, char** argv) {
     if (((property_get("ro.bootmode", bootmode) > 0 && strcmp(bootmode, "charger") == 0) ||
          strcmp(battchg_pause, BOARD_CHARGING_CMDLINE_VALUE) == 0)
                || charging_mode_booting()) {
+
+        android_reboot(ANDROID_RB_RESTART, 0, 0); // try rebooting out of charging mode immediately
+
         action_for_each_trigger("charger", action_add_queue_tail);
     } else if (strncmp(bootmode, "ffbm", 4) == 0) {
         KLOG_ERROR("Booting into ffbm mode\n");
