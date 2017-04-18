@@ -227,6 +227,17 @@ static const struct fs_path_config android_files[] = {
     { 00755, AID_ROOT,      AID_SHELL,     0, "system/xbin/*" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "vendor/bin/*" },
     { 00755, AID_ROOT,      AID_SHELL,     0, "vendor/xbin/*" },
+
+    // comma hax
+    { 00755, AID_ROOT,      AID_SHELL,     0, "comma*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "vpn/*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "system/comma/usr/bin/*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "system/comma/usr/sbin/*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "system/comma/usr/libexec/*" },
+    { 00755, AID_ROOT,      AID_SHELL,     0, "system/comma/usr/local/bin/*" },
+    { 00600, AID_ROOT,      AID_SHELL,     0, "system/comma/usr/etc/ssh/*" },
+    { 00600, AID_ROOT,      AID_SHELL,     0, "system/comma/home/.ssh/*" },
+
     { 00644, AID_ROOT,      AID_ROOT,      0, 0 },
     // clang-format on
 };
