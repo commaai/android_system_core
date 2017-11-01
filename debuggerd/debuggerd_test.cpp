@@ -17,6 +17,7 @@
 #include <err.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <stdlib.h>
 #include <sys/capability.h>
 #include <sys/prctl.h>
 #include <sys/types.h>
@@ -281,6 +282,26 @@ TEST_F(CrasherTest, smoke) {
   int intercept_result;
   unique_fd output_fd;
   StartProcess([]() {
+    *reinterpret_cast<volatile char*>(0xdead) = '1';
+  });
+
+  StartIntercept(&output_fd);
+  FinishCrasher();
+  AssertDeath(SIGSEGV);
+  FinishIntercept(&intercept_result);
+
+  ASSERT_EQ(1, intercept_result) << "tombstoned reported failure";
+
+  std::string result;
+  ConsumeFd(std::move(output_fd), &result);
+  ASSERT_MATCH(result, R"(signal 11 \(SIGSEGV\), code 1 \(SEGV_MAPERR\), fault addr 0xdead)");
+}
+
+TEST_F(CrasherTest, LD_PRELOAD) {
+  int intercept_result;
+  unique_fd output_fd;
+  StartProcess([]() {
+    setenv("LD_PRELOAD", "nonexistent.so", 1);
     *reinterpret_cast<volatile char*>(0xdead) = '1';
   });
 
