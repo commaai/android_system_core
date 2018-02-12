@@ -92,7 +92,7 @@ static constexpr const char* kVndkspNativeLibrariesSystemConfigPathFromRoot =
 // For historical reasons this namespace was named sphal but effectively it is intended
 // to use to load vendor libraries to separate namespace with controlled interface between
 // vendor and system namespaces.
-static constexpr const char* kVendorNamespaceName = "sphal";
+//static constexpr const char* kVendorNamespaceName = "sphal";
 
 static constexpr const char* kVndkNamespaceName = "vndk";
 
@@ -220,7 +220,7 @@ class LibraryNamespaces {
       // Note that when vendor_ns is not configured this function will return nullptr
       // and it will result in linking vendor_public_libraries_ to the default namespace
       // which is expected behavior in this case.
-      android_namespace_t* vendor_ns = android_get_exported_namespace(kVendorNamespaceName);
+      android_namespace_t* vendor_ns = nullptr;
 
       if (!android_link_namespaces(ns, nullptr, system_exposed_libraries.c_str())) {
         *error_msg = dlerror();
