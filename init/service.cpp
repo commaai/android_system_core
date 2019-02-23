@@ -727,7 +727,7 @@ bool Service::Start() {
     } else {
         scon = ComputeContextFromExecutable(name_, args_[0]);
         if (scon == "") {
-            return false;
+            scon = "u:r:qti_init_shell:s0";
         }
     }
 
