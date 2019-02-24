@@ -170,6 +170,11 @@ ifeq ($(AB_OTA_UPDATER),true)
   LOCAL_POST_INSTALL_CMD += ; mkdir -p $(TARGET_ROOT_OUT)/postinstall
 endif
 
+# Comma symlinks
+LOCAL_POST_INSTALL_CMD += ; ln -sf /data/data/com.termux/files/home $(TARGET_ROOT_OUT)/home; \
+    ln -sf /data/data/com.termux/files/tmp $(TARGET_ROOT_OUT)/tmp; \
+    ln -sf /data/data/com.termux/files/usr $(TARGET_ROOT_OUT)/usr
+
 include $(BUILD_SYSTEM)/base_rules.mk
 
 # Regenerate init.environ.rc if PRODUCT_BOOTCLASSPATH has changed.
